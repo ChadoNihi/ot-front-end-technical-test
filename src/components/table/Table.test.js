@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import Table from './Table';
 
 it('should render a table', () => {
-	const { container } = render(<Table />);
+	const { getByRole } = render(<Table />);
 
-	expect(container.querySelector('table')).toBeTruthy();
+	expect(getByRole('table')).toBeTruthy();
 });
