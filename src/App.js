@@ -1,12 +1,11 @@
 import React from "react";
+import Table from './components/table/Table.js';
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <p>
-        Feel free to edit <code>src/App.js</code> and save to reload.
-      </p>
+      <Table></Table>
     </div>
   );
 }
