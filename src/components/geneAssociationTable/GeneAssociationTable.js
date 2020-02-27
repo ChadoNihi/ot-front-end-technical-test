@@ -1,6 +1,6 @@
 import React from "react";
 
-function Table() {
+function GeneAssociationTable() {
   return (
     <table>
 			<caption>Table</caption>
@@ -10,4 +10,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default GeneAssociationTable;
