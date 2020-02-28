@@ -6,7 +6,15 @@ function GeneAssociationTable({ showCaption }) {
   return (
     <table>
 			{ showCaption && <caption>The gene association scores for lung carcinoma</caption> }
-			<thead></thead>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Symbol</th>
+					<th>Gene ID</th>
+					<th>Gene Name</th>
+					<th>Overall Association Score</th>
+				</tr>
+			</thead>
       <tbody></tbody>
     </table>
   );

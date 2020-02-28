@@ -9,6 +9,14 @@ it('should render a table', () => {
 	expect(getByRole('table')).toBeTruthy();
 });
 
+it('should have 5 columns', () => {
+	const numColumnsExpected = 5;
+	const { container } = render(<GeneAssociationTable />);
+
+	expect(container.querySelectorAll('thead th'))
+		.toHaveLength(numColumnsExpected);
+});
+
 describe('caption', () => {
 	it('should have a caption by default', () => {
 		const { container } = render(<GeneAssociationTable />);
