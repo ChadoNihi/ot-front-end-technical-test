@@ -5,17 +5,19 @@ const DATA_ENDPOINT = 'https://demo6922545.mockable.io/';
 
 
 function GeneAssociationTable({
-	maxNumRows,
+	numRowsMax,
 	showCaption,
 }) {
 	useEffect(() => {
+		// FIXME: handle error
 		fetchGeneAssociationData()
 			.then((data) => data);
 	}, []);
 
   return (
     <table>
-			{ showCaption && <caption>The gene association scores for lung carcinoma</caption> }
+			{ showCaption &&
+				<caption>The gene association scores for lung carcinoma</caption> }
 			<thead>
 				<tr>
 					<th></th>
@@ -25,16 +27,33 @@ function GeneAssociationTable({
 					<th>Overall Association Score</th>
 				</tr>
 			</thead>
-      <tbody></tbody>
+      <tbody>
+				{ hasRows ? geneAssociationData.map(({
+						symbol,
+						geneId,
+						geneName,
+						overallScore,
+					}) => (
+						<tr key={ geneId }>
+							<th></th>
+							<th>{ symbol }</th>
+							<th>{ geneId }</th>
+							<th>{ geneName }</th>
+							<th>{ overallScore }</th>
+						</tr>
+					)) : <tr><td>No results</td></tr> }
+			</tbody>
     </table>
   );
 }
 
 GeneAssociationTable.propTypes = {
+	numRowsMax: PropTypes.number,
   showCaption: PropTypes.bool,
 };
 
 GeneAssociationTable.defaultProps = {
+	numRowsMax: 5,
   showCaption: true,
 };
 
