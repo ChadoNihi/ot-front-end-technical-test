@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 
+const DATA_ENDPOINT = 'https://demo6922545.mockable.io/';
 
-function GeneAssociationTable({ showCaption }) {
+
+function GeneAssociationTable({
+	maxNumRows,
+	showCaption,
+}) {
+	useEffect(() => {
+		fetchGeneAssociationData()
+			.then((data) => data);
+	}, []);
+
   return (
     <table>
 			{ showCaption && <caption>The gene association scores for lung carcinoma</caption> }
@@ -29,3 +39,10 @@ GeneAssociationTable.defaultProps = {
 };
 
 export default GeneAssociationTable;
+
+
+function fetchGeneAssociationData() {
+	return fetch(DATA_ENDPOINT)
+		.then((res) => res.json())
+		.then((data) => data);
+}
