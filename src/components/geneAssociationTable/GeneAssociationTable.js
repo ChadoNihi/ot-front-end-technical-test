@@ -10,6 +10,7 @@ function GeneAssociationTable({
 }) {
 	const [ geneAssociationData, setGeneAssociationData ] =
 		useState();
+	const [ loading, setLoading ] =	useState(true);
 	const hasRows =
 		Array.isArray(geneAssociationData) && geneAssociationData.length;
 
@@ -19,6 +20,9 @@ function GeneAssociationTable({
 			.then(({ data: rawData = [] }) => {
 				setGeneAssociationData(
 					prepareGeneAssociationData(rawData, numRowsMax));
+			})
+			.finally(() => {
+				setLoading(false);
 			});
 	}, [ numRowsMax ]);
 
@@ -36,7 +40,8 @@ function GeneAssociationTable({
 				</tr>
 			</thead>
       <tbody>
-				{ hasRows ? geneAssociationData.map(({
+				{ loading ? <tr><td colspan='5'>Loading...</td></tr> :
+					hasRows ? geneAssociationData.map(({
 						symbol,
 						geneId,
 						geneName,
@@ -49,7 +54,7 @@ function GeneAssociationTable({
 							<th>{ geneName }</th>
 							<th>{ overallScore }</th>
 						</tr>
-					)) : <tr><td>No results</td></tr> }
+					)) : <tr><td colspan='5'>No results</td></tr> }
 			</tbody>
     </table>
   );
