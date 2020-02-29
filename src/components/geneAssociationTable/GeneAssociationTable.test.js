@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import GeneAssociationTable from './GeneAssociationTable';
 
 
@@ -17,6 +17,7 @@ it('should have 5 columns', () => {
 		.toHaveLength(numColumnsExpected);
 });
 
+
 describe('caption', () => {
 	it('should have a caption by default', () => {
 		const { container } = render(<GeneAssociationTable />);
@@ -30,5 +31,46 @@ describe('caption', () => {
 		/>);
 
 		expect(container.querySelector('caption')).toBeFalsy();
+	});
+});
+
+
+describe('loading', () => {
+	const loadingText = 'Loading...';
+
+	it('should show loading before data is fetched', () => {
+		const { getByText } = render(<GeneAssociationTable />);
+
+		expect(getByText(loadingText)).toBeTruthy();
+	});
+
+	it('should not show loading on data fetched', async () => {
+		let queryByText;
+
+		jest.spyOn(global, 'fetch').mockImplementation(() =>
+	    Promise.resolve({
+	      json: () => Promise.resolve([])
+	    })
+	  );
+
+		await act(async () => {
+	    ({ queryByText } = render(<GeneAssociationTable />));
+	  });
+
+		expect(queryByText(loadingText)).toBeFalsy();
+	});
+
+	it('should not show loading on error', async () => {
+		let queryByText;
+
+		jest.spyOn(global, 'fetch').mockImplementation(() =>
+	    Promise.reject()
+	  );
+
+		await act(async () => {
+	    ({ queryByText } = render(<GeneAssociationTable />));
+	  });
+
+		expect(queryByText(loadingText)).toBeFalsy();
 	});
 });
