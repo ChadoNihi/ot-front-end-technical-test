@@ -53,11 +53,11 @@ function GeneAssociationTable({
 						overallScore,
 					}) => (
 						<tr key={ geneId }>
-							<th></th>
-							<th>{ symbol }</th>
-							<th>{ geneId }</th>
-							<th>{ geneName }</th>
-							<th>{ overallScore }</th>
+							<td></td>
+							<td>{ symbol }</td>
+							<td>{ geneId }</td>
+							<td>{ geneName }</td>
+							<td>{ overallScore }</td>
 						</tr>
 					)) : <tr><td colSpan='5'>No results</td></tr> }
 			</tbody>
