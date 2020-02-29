@@ -1,5 +1,6 @@
 import React from "react";
-import GeneAssociationTable from './components/geneAssociationTable/GeneAssociationTable.js';
+import GeneAssociationTable from
+	'./components/geneAssociationTable/GeneAssociationTable.js';
 import "./App.css";
 
 function App() {

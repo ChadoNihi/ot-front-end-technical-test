@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
+import BarChart from '../charts/barChart/BarChart';
 
 const DATA_ENDPOINT = 'https://demo6922545.mockable.io/';
 const MINUS_STR = '-';
@@ -7,7 +8,7 @@ const PLUS_STR = '+';
 const TRUE_STR = 'true';
 const FALSE_STR = 'false';
 const TOGGLE_VIZ_ARIA_LABEL =
-	'Toggle a chart with the association scores for each individual data type'
+	'Toggle a chart with the association scores for each individual data type';
 
 
 function GeneAssociationTable({
@@ -79,6 +80,7 @@ function GeneAssociationTable({
 							<td>{ geneId }</td>
 							<td>{ geneName }</td>
 							<td>{ overallScore }</td>
+							{ expanded && <td><BarChart/></td> }
 						</tr>
 					)) : <tr><td colSpan='5'>No results</td></tr> }
 			</tbody>
