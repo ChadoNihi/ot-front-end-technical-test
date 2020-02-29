@@ -83,7 +83,7 @@ function fetchGeneAssociationData() {
 		.then((res) => res.json());
 }
 
-
+// FIXME: test me
 function prepareGeneAssociationData(rawData, numRowsMax) {
 	return rawData
 		.map(prepareDataItem)

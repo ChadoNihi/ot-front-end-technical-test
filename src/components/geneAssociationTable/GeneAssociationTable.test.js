@@ -9,6 +9,7 @@ it('should render a table', () => {
 	expect(getByRole('table')).toBeTruthy();
 });
 
+
 it('should have 5 columns', () => {
 	const numColumnsExpected = 5;
 	const { container } = render(<GeneAssociationTable />);
@@ -18,12 +19,28 @@ it('should have 5 columns', () => {
 });
 
 
+it('should show error msg on fetch error', async () => {
+	let queryByText;
+
+	jest.spyOn(global, 'fetch').mockImplementation(() =>
+		Promise.reject()
+	);
+
+	await act(async () => {
+		({ queryByText } = render(<GeneAssociationTable />));
+	});
+
+	expect(queryByText(/error occured/)).toBeTruthy();
+});
+
+
 describe('caption', () => {
 	it('should have a caption by default', () => {
 		const { container } = render(<GeneAssociationTable />);
 
 		expect(container.querySelector('caption')).toBeTruthy();
 	});
+
 
 	it('should not render a caption', () => {
 		const { container } = render(<GeneAssociationTable
@@ -38,11 +55,13 @@ describe('caption', () => {
 describe('loading', () => {
 	const loadingText = 'Loading...';
 
+
 	it('should show loading before data is fetched', () => {
 		const { getByText } = render(<GeneAssociationTable />);
 
 		expect(getByText(loadingText)).toBeTruthy();
 	});
+
 
 	it('should not show loading on data fetched', async () => {
 		let queryByText;
@@ -59,6 +78,7 @@ describe('loading', () => {
 
 		expect(queryByText(loadingText)).toBeFalsy();
 	});
+
 
 	it('should not show loading on error', async () => {
 		let queryByText;
