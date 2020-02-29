@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
+import Chart from "react-apexcharts";
 
 const DATA_ENDPOINT = 'https://demo6922545.mockable.io/';
+const CHART_TYPE = 'bar';
 const MINUS_STR = '-';
 const PLUS_STR = '+';
 const TRUE_STR = 'true';
@@ -11,6 +13,7 @@ const TOGGLE_VIZ_ARIA_LABEL =
 
 
 function GeneAssociationTable({
+	// FIXME: test the below prop
 	numRowsMax,
 	showCaption,
 }) {
@@ -79,6 +82,9 @@ function GeneAssociationTable({
 							<td>{ geneId }</td>
 							<td>{ geneName }</td>
 							<td>{ overallScore }</td>
+							{ expanded && <td><Chart
+								type={CHART_TYPE}
+								/></td> }
 						</tr>
 					)) : <tr><td colSpan='5'>No results</td></tr> }
 			</tbody>
