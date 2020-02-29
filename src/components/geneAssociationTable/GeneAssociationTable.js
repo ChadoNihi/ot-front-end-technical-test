@@ -12,8 +12,6 @@ function GeneAssociationTable({
 		useState();
 	const [ loading, setLoading ] =	useState(true);
 	const [ error, setError ] =	useState();
-	const hasRows =
-		Array.isArray(geneAssociationData) && geneAssociationData.length;
 
 	useEffect(() => {
 		fetchGeneAssociationData()
@@ -29,6 +27,9 @@ function GeneAssociationTable({
 				setLoading(false);
 			});
 	}, [ numRowsMax ]);
+
+	const hasRows =
+		Array.isArray(geneAssociationData) && geneAssociationData.length;
 
   return (
     <table>
