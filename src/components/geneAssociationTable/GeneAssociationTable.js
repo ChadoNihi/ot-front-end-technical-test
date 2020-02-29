@@ -44,8 +44,8 @@ function GeneAssociationTable({
 				</tr>
 			</thead>
       <tbody>
-				{ loading ? <tr><td colspan='5'>Loading...</td></tr> :
-					error ? <tr><td colspan='5'>{ error }</td></tr> :
+				{ loading ? <tr><td colSpan='5'>Loading...</td></tr> :
+					error ? <tr><td colSpan='5'>{ error }</td></tr> :
 					hasRows ? geneAssociationData.map(({
 						symbol,
 						geneId,
@@ -59,7 +59,7 @@ function GeneAssociationTable({
 							<th>{ geneName }</th>
 							<th>{ overallScore }</th>
 						</tr>
-					)) : <tr><td colspan='5'>No results</td></tr> }
+					)) : <tr><td colSpan='5'>No results</td></tr> }
 			</tbody>
     </table>
   );
