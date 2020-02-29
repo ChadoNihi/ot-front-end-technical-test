@@ -3,6 +3,11 @@ import { act, render } from '@testing-library/react';
 import GeneAssociationTable from './GeneAssociationTable';
 
 
+afterEach(() => {
+	global.fetch.mockRestore?.();
+});
+
+
 it('should render a table', () => {
 	const { getByRole } = render(<GeneAssociationTable />);
 
