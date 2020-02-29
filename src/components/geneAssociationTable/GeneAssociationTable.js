@@ -11,15 +11,19 @@ function GeneAssociationTable({
 	const [ geneAssociationData, setGeneAssociationData ] =
 		useState();
 	const [ loading, setLoading ] =	useState(true);
+	const [ error, setError ] =	useState();
 	const hasRows =
 		Array.isArray(geneAssociationData) && geneAssociationData.length;
 
 	useEffect(() => {
-		// FIXME: handle error
 		fetchGeneAssociationData()
 			.then(({ data: rawData = [] }) => {
 				setGeneAssociationData(
 					prepareGeneAssociationData(rawData, numRowsMax));
+			})
+			.catch((e) => {
+				console.error(e);
+				setError('An error occured while fetching gene association data. Please try again later by reloading the page.');
 			})
 			.finally(() => {
 				setLoading(false);
@@ -41,6 +45,7 @@ function GeneAssociationTable({
 			</thead>
       <tbody>
 				{ loading ? <tr><td colspan='5'>Loading...</td></tr> :
+					error ? <tr><td colspan='5'>{ error }</td></tr> :
 					hasRows ? geneAssociationData.map(({
 						symbol,
 						geneId,
