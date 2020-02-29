@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 
 const DATA_ENDPOINT = 'https://demo6922545.mockable.io/';
+const MINUS_STR = '-';
+const PLUS_STR = '+';
+const TRUE_STR = 'true';
+const FALSE_STR = 'false';
+const TOGGLE_VIZ_ARIA_LABEL =
+	'Toggle a chart with the association scores for each individual data type'
 
 
 function GeneAssociationTable({
@@ -28,6 +34,13 @@ function GeneAssociationTable({
 			});
 	}, [ numRowsMax ]);
 
+	const onToggleVizRow = (geneId) => {
+		const rowItem = geneAssociationData.find(
+			(rowItem) => rowItem.geneId === geneId);
+		rowItem.expanded = !rowItem.expanded;
+		setGeneAssociationData(geneAssociationData.slice());
+	};
+
 	const hasRows =
 		Array.isArray(geneAssociationData) && geneAssociationData.length;
 
@@ -52,9 +65,16 @@ function GeneAssociationTable({
 						geneId,
 						geneName,
 						overallScore,
+						expanded,
 					}) => (
 						<tr key={ geneId }>
-							<td></td>
+							<td><button
+								aria-label={TOGGLE_VIZ_ARIA_LABEL}
+								aria-expanded={ expanded ? TRUE_STR : FALSE_STR }
+								onClick={() => onToggleVizRow(geneId)}
+								>
+								{ expanded ? MINUS_STR : PLUS_STR }
+							</button></td>
 							<td>{ symbol }</td>
 							<td>{ geneId }</td>
 							<td>{ geneName }</td>
