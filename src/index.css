@@ -1,5 +1,8 @@
 :root {
 	--font-size: 18px;
+
+	--blue: #3489ca;
+	--light-grey: #aaa;
 	--black: #222;
 }
 
@@ -17,4 +20,20 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+table caption {
+	margin-bottom: 1.7rem;
+}
+th {
+	text-align: left;
+}
+th, td {
+	padding: 0.9rem 0.8rem;
+}
+
+.icon-btn {
+	color: var(--blue);
+	font-size: 1.3rem;
+	font-weight: bold;
 }

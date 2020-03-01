@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import Chart from "react-apexcharts";
+import "./GeneAssociationTable.css";
 
 const DATA_ENDPOINT = 'https://demo6922545.mockable.io/';
 const CHART_TYPE = 'bar';
@@ -78,6 +79,7 @@ function GeneAssociationTable({
 						<>
 						<tr key={ geneId }>
 							<td><button
+								className='icon-btn'
 								aria-label={TOGGLE_VIZ_ARIA_LABEL}
 								aria-expanded={ expanded ? TRUE_STR : FALSE_STR }
 								onClick={() => onToggleVizRow(geneId)}
@@ -90,12 +92,14 @@ function GeneAssociationTable({
 							<td>{ geneName }</td>
 							<td>{ overallScore }</td>
 						</tr>
-						{ expanded && <tr><td colSpan={COL_SPAN_MAX}><Chart
-							type={CHART_TYPE}
-							series={[{ data: getSeriesFromGeneAssociationScores(
-								scores) }]}
-							options={CHART_OPTIONS}
-							/></td></tr> }
+						{ expanded && <tr className='chart-row'><td colSpan={COL_SPAN_MAX}>
+							<Chart
+								type={CHART_TYPE}
+								series={[{ data: getSeriesFromGeneAssociationScores(
+									scores) }]}
+								options={CHART_OPTIONS}
+							/>
+						</td></tr> }
 						</>
 				)) : <tr><td colSpan={COL_SPAN_MAX}>No results</td></tr> }
 			</tbody>
