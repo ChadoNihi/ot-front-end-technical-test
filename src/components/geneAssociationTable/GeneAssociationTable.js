@@ -54,7 +54,7 @@ function GeneAssociationTable({
   return (
     <table>
 			{ showCaption &&
-				<caption>The gene association scores for lung carcinoma</caption> }
+				<caption>Genes associated with lung carcinoma</caption> }
 			<thead>
 				<tr>
 					<th></th>
