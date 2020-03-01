@@ -27,15 +27,28 @@ it('should have 5 columns', () => {
 it('should show error msg on fetch error', async () => {
 	let queryByText;
 
-	jest.spyOn(global, 'fetch').mockImplementation(() =>
-		Promise.reject()
-	);
+	jest.spyOn(global, 'fetch')
+		.mockImplementation(fetchWithError);
 
 	await act(async () => {
 		({ queryByText } = render(<GeneAssociationTable />));
 	});
 
 	expect(queryByText(/error occured/)).toBeTruthy();
+});
+
+
+it('should handle no results', async () => {
+	let queryByText;
+
+	jest.spyOn(global, 'fetch')
+		.mockImplementation(fetchEmptyData);
+
+	await act(async () => {
+		({ queryByText } = render(<GeneAssociationTable />));
+	});
+
+	expect(queryByText(/no results/i)).toBeTruthy();
 });
 
 
@@ -71,11 +84,8 @@ describe('loading', () => {
 	it('should not show loading on data fetched', async () => {
 		let queryByText;
 
-		jest.spyOn(global, 'fetch').mockImplementation(() =>
-	    Promise.resolve({
-	      json: () => Promise.resolve([])
-	    })
-	  );
+		jest.spyOn(global, 'fetch')
+			.mockImplementation(fetchEmptyData);
 
 		await act(async () => {
 	    ({ queryByText } = render(<GeneAssociationTable />));
@@ -88,9 +98,8 @@ describe('loading', () => {
 	it('should not show loading on error', async () => {
 		let queryByText;
 
-		jest.spyOn(global, 'fetch').mockImplementation(() =>
-	    Promise.reject()
-	  );
+		jest.spyOn(global, 'fetch')
+			.mockImplementation(fetchWithError);
 
 		await act(async () => {
 	    ({ queryByText } = render(<GeneAssociationTable />));
@@ -99,3 +108,15 @@ describe('loading', () => {
 		expect(queryByText(loadingText)).toBeFalsy();
 	});
 });
+
+
+function fetchEmptyData() {
+	return Promise.resolve({
+		json: () => Promise.resolve([])
+	});
+}
+
+
+function fetchWithError() {
+	return Promise.reject();
+}

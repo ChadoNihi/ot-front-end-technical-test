@@ -121,7 +121,7 @@ function GeneAssociationTable({
 							/>
 						</td></tr> }
 						</>
-				)) : <tr><td colSpan={COL_SPAN_MAX}>No results</td></tr> }
+				)) : <tr><td colSpan={COL_SPAN_MAX}>No results from the srever</td></tr> }
 			</tbody>
     </table>
   );
