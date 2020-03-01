@@ -23,6 +23,17 @@ const CHART_OPTIONS = {
 		decimalsInFloat: 2,
 		tickAmount: 10,
 	},
+	plotOptions: {
+	  bar: {
+			dataLabels: { position: 'top', },
+	  },
+  },
+	dataLabels: {
+		offsetY: -10,
+    style: {
+      colors: [ '#444' ],
+    }
+	},
 };
 
 
