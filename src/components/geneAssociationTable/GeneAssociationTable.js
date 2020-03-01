@@ -96,8 +96,8 @@ function GeneAssociationTable({
 						expanded,
 						scores = {},
 					}) => (
-						<>
-						<tr key={ geneId }>
+						<React.Fragment key={ geneId }>
+						<tr>
 							<td><button
 								className='icon-btn'
 								aria-label={TOGGLE_VIZ_ARIA_LABEL}
@@ -120,7 +120,7 @@ function GeneAssociationTable({
 								options={CHART_OPTIONS}
 							/>
 						</td></tr> }
-						</>
+						</React.Fragment>
 				)) : <tr><td colSpan={COL_SPAN_MAX}>No results from the srever</td></tr> }
 			</tbody>
     </table>
