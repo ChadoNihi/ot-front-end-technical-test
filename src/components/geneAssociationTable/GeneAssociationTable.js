@@ -69,12 +69,14 @@ function GeneAssociationTable({
 						geneName,
 						overallScore,
 						expanded,
+						scores = {},
 					}) => (
 						<tr key={ geneId }>
 							<td><button
 								aria-label={TOGGLE_VIZ_ARIA_LABEL}
 								aria-expanded={ expanded ? TRUE_STR : FALSE_STR }
 								onClick={() => onToggleVizRow(geneId)}
+								disabled={ Object.keys(scores).length === 0 }
 								>
 								{ expanded ? MINUS_STR : PLUS_STR }
 							</button></td>
