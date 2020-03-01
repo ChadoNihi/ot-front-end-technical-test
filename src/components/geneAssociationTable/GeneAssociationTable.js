@@ -13,7 +13,16 @@ const TOGGLE_VIZ_ARIA_LABEL =
 	'Toggle a chart with the association scores for each individual data type';
 const COL_SPAN_MAX = '5';
 const CHART_OPTIONS = {
-	xaxis: { type: 'category' },
+	xaxis: {
+		type: 'category',
+		title: { text: 'Data Types', },
+	},
+	yaxis: {
+		title: { text: 'Score', },
+		max: 1,
+		decimalsInFloat: 2,
+		tickAmount: 10,
+	},
 };
 
 
