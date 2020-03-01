@@ -9,11 +9,15 @@ const PLUS_STR = '+';
 const TRUE_STR = 'true';
 const FALSE_STR = 'false';
 const TOGGLE_VIZ_ARIA_LABEL =
-	'Toggle a chart with the association scores for each individual data type'
+	'Toggle a chart with the association scores for each individual data type';
+const COL_SPAN_MAX = '5';
+const CHART_OPTIONS = {
+	xaxis: { type: 'category' },
+};
 
 
 function GeneAssociationTable({
-	// FIXME: test the below prop
+	// FIXME: test the prop below
 	numRowsMax,
 	showCaption,
 }) {
@@ -61,8 +65,8 @@ function GeneAssociationTable({
 				</tr>
 			</thead>
       <tbody>
-				{ loading ? <tr><td colSpan='5'>Loading...</td></tr> :
-					error ? <tr><td colSpan='5'>{ error }</td></tr> :
+				{ loading ? <tr><td colSpan={COL_SPAN_MAX}>Loading...</td></tr> :
+					error ? <tr><td colSpan={COL_SPAN_MAX}>{ error }</td></tr> :
 					hasRows ? geneAssociationData.map(({
 						symbol,
 						geneId,
@@ -71,6 +75,7 @@ function GeneAssociationTable({
 						expanded,
 						scores = {},
 					}) => (
+						<>
 						<tr key={ geneId }>
 							<td><button
 								aria-label={TOGGLE_VIZ_ARIA_LABEL}
@@ -84,11 +89,15 @@ function GeneAssociationTable({
 							<td>{ geneId }</td>
 							<td>{ geneName }</td>
 							<td>{ overallScore }</td>
-							{ expanded && <td><Chart
-								type={CHART_TYPE}
-								/></td> }
 						</tr>
-					)) : <tr><td colSpan='5'>No results</td></tr> }
+						{ expanded && <tr><td colSpan={COL_SPAN_MAX}><Chart
+							type={CHART_TYPE}
+							series={[{ data: getSeriesFromGeneAssociationScores(
+								scores) }]}
+							options={CHART_OPTIONS}
+							/></td></tr> }
+						</>
+				)) : <tr><td colSpan={COL_SPAN_MAX}>No results</td></tr> }
 			</tbody>
     </table>
   );
@@ -139,4 +148,11 @@ function compareDataItems(
 ) {
 	// FIXME: if overall is undefined, sum up scores instead
 	return overallScoreB - overallScoreA;
+}
+
+
+// FIXME: test me
+function getSeriesFromGeneAssociationScores(scores = {}) {
+	return Object.entries(scores)
+		.map(([ scoreKey, score ]) => ({ x: scoreKey, y: score }));
 }
