@@ -1,11 +1,15 @@
 import React from 'react';
-import { act, render } from '@testing-library/react';
+import { act, render } from
+	'@testing-library/react';
 import GeneAssociationTable from './GeneAssociationTable';
 
 
 afterEach(() => {
 	global.fetch.mockRestore?.();
 });
+
+
+// FIXME: test chart rendering
 
 
 it('should render a table', () => {
@@ -17,6 +21,7 @@ it('should render a table', () => {
 
 it('should have 5 columns', () => {
 	const numColumnsExpected = 5;
+
 	const { container } = render(<GeneAssociationTable />);
 
 	expect(container.querySelectorAll('thead th'))
@@ -26,7 +31,6 @@ it('should have 5 columns', () => {
 
 it('should show error msg on fetch error', async () => {
 	let queryByText;
-
 	jest.spyOn(global, 'fetch')
 		.mockImplementation(fetchWithError);
 
@@ -40,7 +44,6 @@ it('should show error msg on fetch error', async () => {
 
 it('should handle no results', async () => {
 	let queryByText;
-
 	jest.spyOn(global, 'fetch')
 		.mockImplementation(fetchEmptyData);
 
@@ -83,7 +86,6 @@ describe('loading', () => {
 
 	it('should not show loading on data fetched', async () => {
 		let queryByText;
-
 		jest.spyOn(global, 'fetch')
 			.mockImplementation(fetchEmptyData);
 
@@ -97,7 +99,6 @@ describe('loading', () => {
 
 	it('should not show loading on error', async () => {
 		let queryByText;
-
 		jest.spyOn(global, 'fetch')
 			.mockImplementation(fetchWithError);
 
@@ -112,7 +113,7 @@ describe('loading', () => {
 
 function fetchEmptyData() {
 	return Promise.resolve({
-		json: () => Promise.resolve([])
+		json: () => Promise.resolve({})
 	});
 }
 
