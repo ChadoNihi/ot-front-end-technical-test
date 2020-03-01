@@ -122,14 +122,14 @@ function prepareGeneAssociationData(rawData, numRowsMax) {
 
 function prepareDataItem({ target, association_score }) {
 	const { gene_info, id } = target || {};
-	const { overall, data_types } = association_score || {};
+	const { overall, datatypes } = association_score || {};
 
 	return {
 		symbol: gene_info?.symbol,
 		geneId: id,
 		geneName: gene_info?.name,
 		overallScore: overall,
-		scores: data_types,
+		scores: datatypes,
 	};
 }
 
